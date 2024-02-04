@@ -79,13 +79,7 @@ try{
         //         echo "<div class='alert alert-success'>You are registered successfully.</div>";
 }catch(Exception $e){
                 die("Something went wrong");
-// 
-}
-   
-        //     }else{
-        //         die("Something went wrong");
-        //     }
-        //    }
+}    
         }
   }
         ?>

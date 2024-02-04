@@ -21,19 +21,13 @@ if (isset($_SESSION["user"])) {
            $email = $_POST["email"];
            $password = $_POST["password"];
             require_once "database.php";
-
-            // $sql = "SELECT * FROM users WHERE email = '$email'";
             $all=$conn->query("SELECT * FROM users WHERE email = '$email'");
-
-            // $result = mysqli_query($conn, $sql);
-            // $user = mysqli_fetch_array($result, MYSQLI_ASSOC);
-
             while($user=$all->fetch()){
                 if ($user) {
                     if (password_verify($password, $user["password"])) {
                         session_start();
                         $_SESSION["user"] = "yes";
-                        $_SESSION["email"]=$user['id'];
+                        $_SESSION["id_user"]=$user['id'];
                         header("Location: index.php");
                         die();
                     }else{
@@ -44,19 +38,6 @@ if (isset($_SESSION["user"])) {
                 }
              
 }
-            // if ($user) {
-            //     if (password_verify($password, $user["password"])) {
-            //         session_start();
-            //         $_SESSION["user"] = "yes";
-            //         $_SESSION["email"]=$user['id'];
-            //         header("Location: index.php");
-            //         die();
-            //     }else{
-            //         echo "<div class='alert alert-danger'>Password does not match</div>";
-            //     }
-            // }else{
-            //     echo "<div class='alert alert-danger'>Email does not match</div>";
-            // }
         }
         ?>
       <form action="login.php" method="post">

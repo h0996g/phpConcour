@@ -1,9 +1,10 @@
 <?php
 session_start();
 if (!isset($_SESSION["user"])) {
-   header("Location: login.php");
+    header("Location: login.php");
 }
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -13,6 +14,11 @@ if (!isset($_SESSION["user"])) {
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
     <link rel="stylesheet" href="style.css">
     <title>User Dashboard</title>
+    <style>
+        .hidden {
+            display: none;
+        }
+    </style>
 </head>
 <body>
     <div class="container">
@@ -20,41 +26,64 @@ if (!isset($_SESSION["user"])) {
         <a href="logout.php" class="btn btn-warning">Logout</a>
     </div>
 
-    <table style="width:100%">
-    <th>nom</th>
-    <th>email</th>
-    
+    <button id="toggleButton" class="btn btn-primary">Toggle Posts</button>
 
-    <?php
-try{
-    $conn=new PDO('mysql:host=localhost;dbname=concours;charset=utf8','root','',array(PDO::ATTR_ERRMODE=>PDO::ERRMODE_EXCEPTION));
+    <table style="width:100%" id="allPostsTable">
+        <th>Desc</th>
+        <th>Grad</th>
 
-}catch(Exception $e){
-die('ERROR :'.$e->getMessage());
+        <?php
+        try {
+            $conn = new PDO('mysql:host=localhost;dbname=concours;charset=utf8', 'root', '', array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
+        } catch (Exception $e) {
+            die('ERROR :' . $e->getMessage());
+        }
 
-}
+        $all = $conn->query('SELECT * FROM Posts');
 
-$all=$conn->query('SELECT * FROM Posts');
+        while ($affich = $all->fetch()) {
+            $desc_post = $affich['desc_post'];
+            $grad_post = $affich['grad_post'];
+            $id_post = $affich['id'];
+            echo
+                '<tr>' .
+                '<td>' . $affich['desc_post'] . '</td>' .
+                '<td>' . $affich['grad_post'] . '</td>' .
+                '<td><a href="concour.php?id=' . $affich['id'] . '">Show</a></td>' .
+                '</tr>';
+        }
+        $all->closeCursor();
+        ?>
+    </table>
 
-while($affich=$all->fetch()){
+    <table style="width:100%" id="clientPostsTable" class="hidden">
+        <th>Desc</th>
+        <th>Grad</th>
 
-                  echo
-                  '<tr>'.
-                    '<td>'.$affich['desc_post'].'</td>'.
-                    '<td>'.$affich['grad_post'].'</td>'.
-                    '<td>'.$affich['desc_post'].'</td>'.
+        <?php
+         echo
+         '<tr>' .
+         '<td>fhhhh</td>' .
+         '<td>ffffff</td>' .
+        //  '<td><a href="concour.php?id=' . $affich['id'] . '">Show</a></td>' .
+         '</tr>';
+        // Retrieve and display client's posts here
+        // Replace this section with your logic to fetch posts registered by the client
+        ?>
 
-                    // '<td>'.$affich['grad_post'].'</td>'.
+    </table>
 
-                    // '<td>'.$affich['nombre_post'].'</td>'.
-                    // '<td>'.$_SESSION['email'].'</td>'.
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var allPostsTable = document.getElementById('allPostsTable');
+            var clientPostsTable = document.getElementById('clientPostsTable');
+            var toggleButton = document.getElementById('toggleButton');
 
-                  '</tr>';
-                  
-}
-$all->closeCursor();
-
-?>
-</table>
+            toggleButton.addEventListener('click', function () {
+                allPostsTable.classList.toggle('hidden');
+                clientPostsTable.classList.toggle('hidden');
+            });
+        });
+    </script>
 </body>
 </html>
