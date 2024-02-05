@@ -13,7 +13,58 @@ if (isset($_SESSION["user"])) {
     <title>Login Form</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
     <link rel="stylesheet" href="style.css">
+    <style>
+body {
+    background-image: url("medical.jpg");
+    font: inherit;
+    background-color: #cccccc; /* Used if the image is unavailable */
+    height: 100vh; /* You must set a specified height */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-position: center; /* Center the image */
+    background-repeat: no-repeat; /* Do not repeat the image */
+    background-size: cover;
+}
+
+.container {
+    text-align: center;
+}
+
+form {
+    width: 100%;
+    max-width: 400px;
+    margin: 0 auto; /* Center the form */
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-btn {
+    text-align: center;
+}
+
+/* Improved styling for the "Not registered yet, Register Here" link */
+p {
+    margin-top: 20px;
+    font-size: 14px;
+    color: #555;
+}
+
+a {
+    color: #007bff;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+</style>
 </head>
+
 <body>
     <div class="container">
         <?php
@@ -55,3 +106,12 @@ if (isset($_SESSION["user"])) {
     </div>
 </body>
 </html>
+
+
+
+
+
+
+
+
+
