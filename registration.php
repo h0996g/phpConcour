@@ -17,53 +17,54 @@ if (isset($_SESSION["user"])) {
         crossorigin="anonymous">
     <link rel="stylesheet" href="style.css">
     <style>
-        body {
-            background-image: url("medical.jpg");
-            font: inherit;
-            background-color: #cccccc; /* Used if the image is unavailable */
-            height: 100vh; /* You must set a specified height */
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background-position: center; /* Center the image */
-            background-repeat: no-repeat; /* Do not repeat the image */
-            background-size: cover;
-        }
+     body {
+    background-image: url("medical.jpg");
+    font: inherit;
+    background-color: #cccccc; /* Used if the image is unavailable */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-position: center; /* Center the image */
+    background-repeat: no-repeat; /* Do not repeat the image */
+    background-size: cover;
+}
 
-        .container {
-            text-align: center;
-        }
+.container {
+    text-align: center;
+    max-width: 400px;
+    margin: 0 auto; /* Center the container */
+    overflow-y: auto; /* Enable vertical scrolling */
+}
 
-        form {
-            width: 100%;
-            max-width: 400px;
-            margin: 0 auto; /* Center the form */
-        }
+form {
+    width: 100%;
+}
 
-        .form-group {
-            margin-bottom: 20px;
-        }
+.form-group {
+    margin-bottom: 20px;
+}
 
-        .form-btn {
-            text-align: center;
-        }
+.form-btn {
+    text-align: center;
+}
 
-        /* Improved styling for the "Already Registered, Login Here" link */
-        p {
-            margin-top: 20px;
-            font-size: 14px;
-            color: #555;
-        }
+/* Improved styling for the "Already Registered, Login Here" link */
+p {
+    margin-top: 20px;
+    font-size: 14px;
+    color: #555;
+}
 
-        a {
-            color: #007bff;
-            text-decoration: none;
-            font-weight: bold;
-        }
+a {
+    color: #007bff;
+    text-decoration: none;
+    font-weight: bold;
+}
 
-        a:hover {
-            text-decoration: underline;
-        }
+a:hover {
+    text-decoration: underline;
+}
+
     </style>
 </head>
 
@@ -71,35 +72,39 @@ if (isset($_SESSION["user"])) {
     <div class="container">
         <?php
               if (isset($_POST["submit"])) {
-                $fullName = $_POST["fullname"];
-                $email = $_POST["email"];
+                $email=$_POST["email"];
+                $nom = $_POST["nom"];
+                $prenom = $_POST["prenom"];
+                $date_naissance = $_POST["date_naissance"];
+                $lieu_naissance = $_POST["lieu_naissance"];
+                $adresse = $_POST["adresse"];
+                $telephone = $_POST["telephone"];
+                $sexe = $_POST["sexe"];
+                $etat_civil = $_POST["etat_civil"];
+                $nombre_enfants = $_POST["nombre_enfants"];
+                $diplom = $_POST["diplom"];
+                $service_national = $_POST["service_national"];
+                $malade_chronique = $_POST["malade_chronique"];
                 $password = $_POST["password"];
-                $passwordRepeat = $_POST["repeat_password"];
                 
                 $passwordHash = password_hash($password, PASSWORD_DEFAULT);
      
                 $errors = array();
                 
-                if (empty($fullName) OR empty($email) OR empty($password) OR empty($passwordRepeat)) {
-                 array_push($errors,"All fields are required");
-                }
-                if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-                 array_push($errors, "Email is not valid");
-                }
-                if (strlen($password)<8) {
-                 array_push($errors,"Password must be at least 8 charactes long");
-                }
-                if ($password!==$passwordRepeat) {
-                 array_push($errors,"Password does not match");
-                }
+                // if (empty($fullName) OR empty($email) OR empty($password) OR empty($passwordRepeat)) {
+                //  array_push($errors,"All fields are required");
+                // }
+                // if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+                //  array_push($errors, "Email is not valid");
+                // }
+                // if (strlen($password)<8) {
+                //  array_push($errors,"Password must be at least 8 charactes long");
+                // }
+                // if ($password!==$passwordRepeat) {
+                //  array_push($errors,"Password does not match");
+                // }
                 require_once "database.php";
-             //    $sql = "SELECT * FROM users WHERE email = '$email'";
-                 $all=$conn->query("SELECT * FROM users WHERE email = '$email'");
-     
-             //    $result = mysqli_query($conn, $sql);
-                
-                
-             //    $rowCount = mysqli_num_rows($result);
+                 $all=$conn->query("SELECT * FROM participants WHERE email_Part = '$email'");
                 $rowCount = $all->fetchColumn();
                 if ($rowCount>0) {
                  array_push($errors,"Email already exists!");
@@ -109,27 +114,30 @@ if (isset($_SESSION["user"])) {
                      echo "<div class='alert alert-danger'>$error</div>";
                  }
                 }else{
-                 
-                 // $sql = "INSERT INTO users (nom, email, password) VALUES ( ?, ?, ? )";
-                 // $stmt = mysqli_stmt_init($conn);
-                 // $prepareStmt = mysqli_stmt_prepare($stmt,$sql);
-     
-     
      try{
-         $add = $conn->prepare("INSERT INTO users (nom, email, password) values(:nom,:email,:password)");
+         $add = $conn->prepare("INSERT INTO participants (Nom_Part,Prenom_Part,Date_nais,Lieu_de_naissance,Adresse_Part,Telph_Part,Sexe_part,etat_civil,nmb_enf,diplome_part,service_national,malade_chronique ,email_Part, Pasword_Part) values(:Nom_Part,:Prenom_Part,:Date_nais,:Lieu_de_naissance,:Adresse_Part,:Telph_Part,:Sexe_part,:etat_civil,:nmb_enf,:diplome_part,:service_national,:malade_chronique ,:email_Part, :Pasword_Part)");
      
          $add->execute(array(
-             'nom' => $fullName,
-             'email' => $email,
-             'password' => $passwordHash,
+             'Nom_Part' => $nom,
+             'email_Part' => $email,
+             'Pasword_Part' => $passwordHash,
+             'Prenom_Part'=> $prenom,
+             'Date_nais'=> $date_naissance,
+             'Lieu_de_naissance'=> $lieu_naissance,
+             'Adresse_Part'=> $adresse,
+             'Telph_Part'=> $telephone,
+             'Sexe_part'=> $sexe,
+             'etat_civil'=> $etat_civil,
+             'nmb_enf'=> $nombre_enfants,
+             'diplome_part'=> $diplom,
+             'service_national'=> $service_national,
+             'malade_chronique'=> $malade_chronique,
+             
+
            ));
            $add->closeCursor();
                      echo "<div class='alert alert-success'>You are registered successfully.</div>";
      
-             //     if ($prepareStmt) {
-             //         mysqli_stmt_bind_param($stmt,"sss",$fullName, $email, $passwordHash);
-             //         mysqli_stmt_execute($stmt);
-             //         echo "<div class='alert alert-success'>You are registered successfully.</div>";
      }catch(Exception $e){
                      die("Something went wrong");
      }    
@@ -137,24 +145,62 @@ if (isset($_SESSION["user"])) {
        }
         ?>
         <form action="registration.php" method="post">
-            <div class="form-group">
-                <input type="text" class="form-control" name="fullname" placeholder="Full Name:">
+        <div class="form-group">
+                <input type="email" class="form-control" name="email" placeholder="email" require>
             </div>
             <div class="form-group">
-                <input type="email" class="form-control" name="email" placeholder="Email:">
+                <input type="text" class="form-control" name="nom" placeholder="Nom">
             </div>
             <div class="form-group">
-                <input type="password" class="form-control" name="password" placeholder="Password:">
+                <input type="text" class="form-control" name="prenom" placeholder="Prénom">
             </div>
             <div class="form-group">
-                <input type="password" class="form-control" name="repeat_password" placeholder="Repeat Password:">
+                <input type="date" class="form-control" name="date_naissance" placeholder="Date de naissance">
+            </div>
+            <div class="form-group">
+                <input type="text" class="form-control" name="lieu_naissance" placeholder="Lieu de naissance">
+            </div>
+            <div class="form-group">
+                <input type="text" class="form-control" name="adresse" placeholder="Adresse">
+            </div>
+            <div class="form-group">
+                <input type="text" class="form-control" name="telephone" placeholder="Téléphone">
+            </div>
+            <div class="form-group">
+                <select class="form-control" name="sexe">
+                    <option value="homme">Homme</option>
+                    <option value="femme">Femme</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <select class="form-control" name="etat_civil">
+                    <option value="célibataire">Célibataire</option>
+                    <option value="marié">Marié</option>
+                    <option value="divorcé">Divorcé</option>
+                    <option value="veuf">Veuf</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <input type="number" class="form-control" name="nombre_enfants" placeholder="Nombre d'enfants">
+            </div>
+            <div class="form-group">
+                <input type="text" class="form-control" name="diplom" placeholder="Diplôme">
+            </div>
+            <div class="form-group">
+                <input type="text" class="form-control" name="service_national" placeholder="Service National">
+            </div>
+            <div class="form-group">
+                <input type="text" class="form-control" name="malade_chronique" placeholder="Malade Chronique">
+            </div>
+            <div class="form-group">
+                <input type="password" class="form-control" name="password" placeholder="Mot de passe">
             </div>
             <div class="form-btn">
-                <input type="submit" class="btn btn-primary" value="Register" name="submit">
+                <input type="submit" class="btn btn-primary" value="S'inscrire" name="submit">
             </div>
         </form>
         <div>
-            <p>Already Registered? <a href="login.php">Login Here</a></p>
+            <p>Déjà inscrit? <a href="login.php">Connectez-vous ici</a></p>
         </div>
     </div>
 </body>

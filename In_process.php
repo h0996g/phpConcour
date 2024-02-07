@@ -121,40 +121,47 @@ th {
     <div class="container">
         <h1>Welcome </h1>
         
-
-        <table id="allPostsTable">
+        <table id="clientPostsTable" >
             <thead>
                 <tr>
                     <th>Desc</th>
                     <th>Grad</th>
-                    <th>Action</th>
+                    <th>Nombre Post</th>
+                    <th>Date Concours</th>
+                    <th>Lieu Concours</th>
+                    <th>Résultat</th>
                 </tr>
             </thead>
             <tbody>
                 <?php
-                try {
                     $conn = new PDO('mysql:host=localhost;dbname=memoir;charset=utf8', 'root', '', array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
-                    $all_post = $conn->query('SELECT * FROM poste');
 
-                    while ($affich = $all_post->fetch()) {
-                        $desc_post = $affich['des_poste'];
-                        $grad_post = $affich['grade_poste'];
-                        $id_post = $affich['Id_Poste'];
-                        echo
-                            '<tr>' .
-                            '<td>' . $desc_post . '</td>' .
-                            '<td>' . $grad_post . '</td>' .
-                            '<td><a href="concour.php?id=' . $id_post . '">Show</a></td>' .
-                            '</tr>';
-                    }
-                    $all_post->closeCursor();
-                } catch (Exception $e) {
-                    die('ERROR :' . $e->getMessage());
+                $concour_own = $conn->prepare('SELECT * FROM concours c , participe p, poste po where c.ID_Concours=p.ID_Concours and p.Id_Part= :Id_Part and po.Id_Poste=c.Id_Poste;');
+
+                $concour_own->execute(array('Id_Part' => $_SESSION['id_user']));
+
+                while ($row = $concour_own->fetch()) {
+                    $id_concour = $row['ID_Concours'];
+                    $desc_post = $row['des_poste'];
+                    $grad_post = $row['grade_poste'];
+                    $date_concour = $row['Date_Concours'];
+                    $lieu_concour = $row['Lieu_Concours'];
+                    $nombre_post = $row['Nombre_poste'];
+                    $resultat = $row['Resultat'];
+
+                    echo
+                        '<tr>' .
+                        '<td>' . $desc_post . '</td>' .
+                        '<td>' . $grad_post . '</td>' .
+                        '<td>' . $nombre_post . '</td>' .
+                        '<td>' . $date_concour . '</td>' .
+                        '<td>' . $lieu_concour . '</td>' .
+                        '<td>' . $resultat . '</td>' .
+                        '</tr>';
                 }
                 ?>
             </tbody>
         </table>
-
     </div>
 </body>
 </html>

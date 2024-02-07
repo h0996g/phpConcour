@@ -6,12 +6,12 @@ if (!isset($_SESSION["user"])) {
 
 function button1($conn){
     try {      
-        $add = $conn->prepare("INSERT INTO participe (id_user, id_concour,resultat) values(:id_user,:id_concour,:resultat)");
+        $add = $conn->prepare("INSERT INTO participe (Id_Part, ID_Concours,Resultat) values(:Id_Part,:ID_Concours,:Resultat)");
     
         $add->execute(array(
-            'id_user' => $_SESSION['id_user'],
-            'id_concour' => $_GET['id'],
-            'resultat' => 'attend'
+            'Id_Part' => $_SESSION['id_user'],
+            'ID_Concours' => $_GET['id'],
+            'Resultat' => 'en attente'
         ));
 
         $add->closeCursor();
@@ -21,7 +21,7 @@ function button1($conn){
 } 
 
 try {
-    $conn = new PDO('mysql:host=localhost;dbname=concours;charset=utf8','root','',array(PDO::ATTR_ERRMODE=>PDO::ERRMODE_EXCEPTION));
+    $conn = new PDO('mysql:host=localhost;dbname=memoir;charset=utf8','root','',array(PDO::ATTR_ERRMODE=>PDO::ERRMODE_EXCEPTION));
     // $all = $conn->query('SELECT * FROM Concours where id_post =1 ');
 } catch(Exception $e){
     die('ERROR :'.$e->getMessage());
@@ -35,28 +35,28 @@ if(isset($_POST['button1'])) {
 
 }
 
-$concours = $conn->prepare('SELECT * FROM concours WHERE id_post = :id_post');
+$concours = $conn->prepare('SELECT * FROM concours WHERE Id_Poste = :Id_Poste');
 $concours->execute(array(
-    'id_post' => $_GET['id'],
+    'Id_Poste' => $_GET['id'],
 ));
 while($affich = $concours->fetch()){
-    $id_concour = $affich['id'];
-    $date_concour = $affich['date_concour'];
-    $lieu_concour = $affich['lieu_concour'];
-    $nombre_post = $affich['nombre_post'];
+    $id_concour = $affich['ID_Concours'];
+    $date_concour = $affich['Date_Concours'];
+    $lieu_concour = $affich['Lieu_Concours'];
+    $nombre_post = $affich['Nombre_poste'];
 }
 $concours->closeCursor();
 
-$participe = $conn->prepare('SELECT * FROM participe WHERE id_user = :id_user and id_concour = :id_concour');
+$participe = $conn->prepare('SELECT * FROM participe WHERE Id_Part = :Id_Part and ID_Concours = :ID_Concours');
 $participe->execute(array(
-    'id_concour' => $id_concour,
-    'id_user' => $_SESSION['id_user']
+    'ID_Concours' => $id_concour,
+    'Id_Part' => $_SESSION['id_user']
 ));
 
 $resultat = 'register';
 
 while($participe_affich = $participe->fetch()){
-    $resultat = $participe_affich['resultat'];
+    $resultat = $participe_affich['Resultat'];
 }
 
 $participe->closeCursor();
@@ -71,13 +71,37 @@ $participe->closeCursor();
     <title>User Dashboard</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
-            background-color: #f5f5f5; /* Light Gray */
-            margin: 0;
-            padding: 0;
-            background-image: url("medical.jpg");
+    font-family: Arial, sans-serif;
+    background-color: #f5f5f5; /* Light Gray */
+    background-image: url("medical.jpg");
 
-        }
+    margin: 0;
+    padding: 0;
+}
+
+.navbar {
+        background-color: #333;
+        overflow: hidden;
+        display: flex;
+        justify-content: space-between; /* Align items to the start and end of the flex container */
+        padding: 0 20px; /* Add padding to give some space */
+    }
+
+    .logout-button {
+        margin-left: auto; /* Push the logout button to the right by using margin-left: auto */
+        
+    }
+
+    .navbar a {
+        color: #f2f2f2;
+        text-decoration: none;
+        padding: 14px 16px;
+    }
+
+    .navbar a:hover {
+        background-color: #ddd;
+        color: black;
+    }
        
 
         .container {
@@ -118,6 +142,14 @@ $participe->closeCursor();
  
 </head>
 <body>
+<div class="navbar">
+  
+  <a href="index.php" id="showAllPostsButton">Home</a>
+  <a href="In_process.php" id="showClientPostsButton">In process</a>
+  <div class="logout-button">
+      <a href="logout.php" class="btn btn-warning">Logout</a>
+  </div>
+</div>
     <div class="container">
         <h1>Concours Details</h1>
         <div class="details"> 
