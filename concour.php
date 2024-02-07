@@ -22,7 +22,7 @@ function button1($conn){
 
 try {
     $conn = new PDO('mysql:host=localhost;dbname=concours;charset=utf8','root','',array(PDO::ATTR_ERRMODE=>PDO::ERRMODE_EXCEPTION));
-    $all = $conn->query('SELECT * FROM Concours where id_post =1 ');
+    // $all = $conn->query('SELECT * FROM Concours where id_post =1 ');
 } catch(Exception $e){
     die('ERROR :'.$e->getMessage());
 }
