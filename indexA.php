@@ -111,7 +111,7 @@ th {
 <div class="navbar">
   
     <a href="indexA.php" id="showAllPostsButton">Home</a>
-    <a href="#lisner" id="showClientPostsButton">Add post</a>
+    <a href="addPost.php" id="">Add post</a>
     <div class="logout-button">
         <a href="logoutA.php" class="btn btn-warning">Logout</a>
     </div>
@@ -129,7 +129,7 @@ th {
                 <tr>
                     <th>Desc</th>
                     <th>Grad</th>
-                    <th>Action</th>
+                    <th>participe</th>
                     <th>delete</th>
 
                 </tr>
@@ -137,90 +137,62 @@ th {
             <tbody>
                 <?php
                 try {
-                    $conn = new PDO('mysql:host=localhost;dbname=concours;charset=utf8', 'root', '', array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
-                    $all_post = $conn->query('SELECT * FROM Posts');
+                    $conn = new PDO('mysql:host=localhost;dbname=memoir;charset=utf8', 'root', '', array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
+                    $all_post = $conn->query('SELECT * FROM poste');
 
                     while ($affich = $all_post->fetch()) {
-                        $desc_post = $affich['desc_post'];
-                        $grad_post = $affich['grad_post'];
-                        $id_post = $affich['id'];
+                        $desc_post = $affich['des_poste'];
+                        $grad_post = $affich['grade_poste'];
+                        $id_post = $affich['Id_Poste'];
                         echo
                             '<tr>' .
-                            '<td>' . $affich['desc_post'] . '</td>' .
-                            '<td>' . $affich['grad_post'] . '</td>' .
-                            '<td><a href="concourA.php?id=' . $affich['id'] . '">Show</a></td>' .
-                            '<td><a href="concour.php?id=' . $affich['id'] . '">Delete</a></td>' .
+                            '<td>' . $desc_post . '</td>' .
+                            '<td>' . $grad_post . '</td>' .
+                            '<td><a href="concourA.php?id=' . $id_post . '">Show</a></td>' .
+                            '<td><form method="post">'.
+                            '<input type="hidden" name="id_post" value='.$id_post.'>'.
+                            
+                            '<input type="submit"  name="delete" class="delete" value="delete" />'.
+                            '</form></td>'.
+
+                            // '<td><a href="concour.php?id=' . $id_post . '">Delete</a></td>' .
                             '</tr>';
                     }
                     $all_post->closeCursor();
                 } catch (Exception $e) {
                     die('ERROR :' . $e->getMessage());
                 }
-                ?>
-            </tbody>
-        </table>
 
-        <table id="clientPostsTable" class="hidden">
-            <thead>
-                <tr>
-                    <th>userName</th>
-                    <th>email</th>
-                    <!-- <th>Nombre Post</th>
-                    <th>Date Concours</th>
-                    <th>Lieu Concours</th>
-                    <th>Résultat</th> -->
-                </tr>
-            </thead>
-            <tbody>
-                <?php
-                $concour_own =$conn->query('SELECT * FROM  participe p, users u where  p.id_user= u.id ');
-
-                // $concour_own->execute();
-
-                while ($row = $concour_own->fetch()) {
-                    // $id_concour = $row['id'];
-                    // $desc_post = $row['desc_post'];
-                    // $grad_post = $row['grad_post'];
-                    // $date_concour = $row['date_concour'];
-                    // $lieu_concour = $row['lieu_concour'];
-                    // $nombre_post = $row['nombre_post'];
-                    // $resultat = $row['resultat'];
-                    $name_user=$row['nom'];
-                    $email_user=$row['email'];
+             
+                
+                if(isset($_POST['delete'])) { 
+                    // button1($conn); 
+                    try {    
+                        
+                        
 
 
-                    echo
-                        '<tr>' .
-                        '<td>' . $name_user . '</td>' .
-                        '<td>' . $email_user . '</td>' .
-                        '<td>' . $id_post . '</td>' .
-                        // '<td>' . $nombre_post . '</td>' .
-                        // '<td>' . $date_concour . '</td>' .
-                        // '<td>' . $lieu_concour . '</td>' .
-                        // '<td>' . $resultat . '</td>' .
-                        '</tr>';
+
+                        
+                        $add = $conn->prepare("DELETE FROM poste WHERE Id_Poste=:Id_Poste ;");
+                    
+                        $add->execute(array(
+                            'Id_Poste' => $_POST['id_post'],
+                            
+                        ));
+                
+                        $add->closeCursor();
+                    } catch(Exception $e){
+                        // Handle the exception if needed
+                    } 
+                    // header("Refresh:0");
+                    header("Location: ".$_SERVER['PHP_SELF']);
+                  exit();
+                
                 }
                 ?>
             </tbody>
         </table>
-
-        <script>
-           document.addEventListener('DOMContentLoaded', function () {
-        var allPostsTable = document.getElementById('allPostsTable');
-        var clientPostsTable = document.getElementById('clientPostsTable');
-        var AllPostButton = document.getElementById('showAllPostsButton');
-        var ClientPostButton = document.getElementById('showClientPostsButton');
-
-        AllPostButton.addEventListener('click', function () {
-            clientPostsTable.style.display = 'none';
-            allPostsTable.style.display = 'table'; // Set display property to 'table' to show the table
-        });
-        ClientPostButton.addEventListener('click', function () {
-            allPostsTable.style.display = 'none';
-            clientPostsTable.style.display = 'table'; // Set display property to 'table' to show the table
-        });
-    });
-        </script>
     </div>
 </body>
 </html>

@@ -21,7 +21,7 @@ if (!isset($_SESSION["admin"])) {
 //     } 
 // } 
 try {
-    $conn = new PDO('mysql:host=localhost;dbname=concours;charset=utf8','root','',array(PDO::ATTR_ERRMODE=>PDO::ERRMODE_EXCEPTION));
+    $conn = new PDO('mysql:host=localhost;dbname=memoir;charset=utf8','root','',array(PDO::ATTR_ERRMODE=>PDO::ERRMODE_EXCEPTION));
     // $all = $conn->query('SELECT * FROM Concours where id_post =1 ');
 } catch(Exception $e){
     die('ERROR :'.$e->getMessage());
@@ -31,13 +31,13 @@ if(isset($_POST['update'])) {
     // button1($conn); 
     try {      
         $add = $conn->prepare("UPDATE participe
-        SET resultat = :resultat
-        WHERE id_user= :id_user and id_concour= :id_concour");
+        SET Resultat = :Resultat
+        WHERE Id_Part= :Id_Part and ID_Concours= :ID_Concours");
     
         $add->execute(array(
-            'id_user' => $_POST['id_user'],
-            'id_concour' =>$_POST['id_concour'],
-            'resultat' =>$_POST['resultat'] 
+            'Id_Part' => $_POST['id_user'],
+            'ID_Concours' =>$_POST['id_concour'],
+            'Resultat' =>$_POST['resultat'] 
         ));
 
         $add->closeCursor();
@@ -65,7 +65,6 @@ if(isset($_POST['update'])) {
     margin: 0;
     padding: 0;
 }
-
 .navbar {
         background-color: #333;
         overflow: hidden;
@@ -151,13 +150,14 @@ th {
 }
 
 
+
     </style>
 </head>
 <body>
 <div class="navbar">
   
     <a href="indexA.php" id="showAllPostsButton">Home</a>
-    <a href="#lisner" id="showClientPostsButton">Add post</a>
+    <a href="addPost.php" id="">Add post</a>
     <div class="logout-button">
         <a href="logoutA.php" class="btn btn-warning">Logout</a>
     </div>
@@ -184,18 +184,18 @@ th {
             <tbody>
                 <?php
                 try {
-                    $conn = new PDO('mysql:host=localhost;dbname=concours;charset=utf8', 'root', '', array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
-                    $all_post = $conn->prepare('select * from participe p ,concours c,users u WHERE p.id_concour=c.id and c.id_post= :id_post and u.id=p.id_user');
+                    $conn = new PDO('mysql:host=localhost;dbname=memoir;charset=utf8', 'root', '', array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
+                    $all_post = $conn->prepare('select * from participe p ,concours c,participants u WHERE p.ID_Concours =c.ID_Concours  and c.Id_Poste = :Id_Poste and u.Id_Part =p.Id_Part ');
                     $all_post->execute(array(
-                        'id_post' => $_GET['id'],
+                        'Id_Poste' => $_GET['id'],
                     ));
                     while ($affich = $all_post->fetch()) {
-                        $nom = $affich['nom'];
-                        $prenom = $affich['prenom'];
-                        $email = $affich['email'];
-                        $id_user=$affich['id_user'];
-                        $id_concour=$affich['id_concour'];
-                        $resultat=$affich['resultat'];
+                        $nom = $affich['Nom_Part'];
+                        $prenom = $affich['Prenom_Part'];
+                        $email = $affich['email_Part'];
+                        $id_user=$affich['Id_Part'];
+                        $id_concour=$affich['ID_Concours'];
+                        $resultat=$affich['Resultat'];
                         echo
                             '<tr>' .
                             '<td>' . $nom. '</td>' .
@@ -210,7 +210,7 @@ th {
                             '<td>'.
                              ' <select name="resultat" id="resultat">'.
                             ' <option value="none" selected disabled hidden>'.$resultat.'</option>'.
-                             '<option value="En cours">En cours</option>'.
+                             '<option value="en attente">en attente</option>'.
                               '<option value="acceptable">acceptable</option>'.
                               '<option value="inacceptable">inacceptable</option>'.
                             '</select>'.

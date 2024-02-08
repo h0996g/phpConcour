@@ -10,13 +10,14 @@ function button1($conn){
     
         $add->execute(array(
             'Id_Part' => $_SESSION['id_user'],
-            'ID_Concours' => $_GET['id'],
+            'ID_Concours' => $_POST['id_concour'],
             'Resultat' => 'en attente'
         ));
 
         $add->closeCursor();
     } catch(Exception $e){
         // Handle the exception if needed
+        die($e);
     } 
 } 
 
@@ -132,6 +133,17 @@ $participe->closeCursor();
             border-radius: 5px;
             text-decoration: none;
         }
+        .btn {
+    padding: 10px 20px;
+    font-size: 16px;
+    margin: 10px;
+    background-color: #ffc107; /* Yellow */
+    color: #212529; /* Black */
+    border: 1px solid #ffc107; /* Yellow */
+    border-radius: 5px;
+    text-decoration: none;
+    cursor: pointer;
+}
 
         .button:hover {
             /* background-color: #ffca2b; */
@@ -159,6 +171,7 @@ $participe->closeCursor();
         </div>
         <form method="post">
             <input type="hidden" name="form_submitted" value="1">
+            <input type="hidden" name="id_concour" value="<?php echo $id_concour ?>">
             <input type="submit"  name="button1" class="button"  value="<?php echo $resultat ?>" <?php if($resultat != 'register'){ echo 'disabled="disabled"'; } ?> />
         </form>
     </div>

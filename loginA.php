@@ -17,13 +17,13 @@ if (isset($_SESSION["admin"])) {
 body {
     background-image: url("medical.jpg");
     font: inherit;
-    background-color: #cccccc; /* Used if the image is unavailable */
-    height: 100vh; /* You must set a specified height */
+    background-color: #cccccc;
+    height: 100vh; 
     display: flex;
     align-items: center;
     justify-content: center;
-    background-position: center; /* Center the image */
-    background-repeat: no-repeat; /* Do not repeat the image */
+    background-position: center; 
+    background-repeat: no-repeat;
     background-size: cover;
 }
 
@@ -34,7 +34,7 @@ body {
 form {
     width: 100%;
     max-width: 400px;
-    margin: 0 auto; /* Center the form */
+    margin: 0 auto;
 }
 
 .form-group {
@@ -45,7 +45,6 @@ form {
     text-align: center;
 }
 
-/* Improved styling for the "Not registered yet, Register Here" link */
 p {
     margin-top: 20px;
     font-size: 14px;
@@ -75,10 +74,9 @@ a:hover {
             $all=$conn->query("SELECT * FROM admin WHERE user_name = '$user_name'");
             while($user=$all->fetch()){
                 if ($user) {
-                    if (password_verify($Pas_Word_Admin, $user["Pas_Word_Admin"])) {
+                    if (password_verify($Pas_Word_Admin, $user["PasWord_admin"])) {
                         session_start();
                         $_SESSION["admin"] = "yes";
-                        // $_SESSION["id_user"]=$user['id'];
                         header("Location: indexA.php");
                         die();
                     }else{

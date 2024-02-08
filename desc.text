@@ -1,1 +1,8 @@
 f login else t3 email or username ghalet mtjich Alert();
+
+bh ymchi lzm varchar t3 password twali 255 3la jal hashCode
+
+registerAdmin.php ghir 3la jal bh ndir account admin bl hash 
+
+
+bh ymchi participe lzm ndirlo id 3la zoj ref li kynin

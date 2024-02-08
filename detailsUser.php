@@ -8,15 +8,26 @@ if (!isset($_SESSION["admin"])) {
 
 
 
-$conn = new PDO('mysql:host=localhost;dbname=concours;charset=utf8', 'root', '', array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
-$concours = $conn->prepare('SELECT * FROM users WHERE id = :id_user');
+$conn = new PDO('mysql:host=localhost;dbname=memoir;charset=utf8', 'root', '', array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
+$concours = $conn->prepare('SELECT * FROM participants WHERE Id_Part = :Id_Part');
 $concours->execute(array(
-    'id_user' => $_GET['id'],
+    'Id_Part' => $_GET['id'],
 ));
 while($affich = $concours->fetch()){
-    $nom = $affich['nom'];
-    $prenom = $affich['prenom'];
-    $email = $affich['email'];
+    $email=$affich["email_Part"];
+    $nom = $affich["Nom_Part"];
+    $prenom = $affich["Prenom_Part"];
+    $date_naissance = $affich["Date_nais"];
+    $lieu_naissance = $affich["Lieu_de_naissance"];
+    $adresse = $affich["Adresse_Part"];
+    $telephone = $affich["Telph_Part"];
+    $sexe = $affich["Sexe_part"];
+    $etat_civil = $affich["etat_civil"];
+    $nombre_enfants = $affich["nmb_enf"];
+    $diplom = $affich["diplome_part"];
+    $service_national = $affich["service_national"];
+    $malade_chronique = $affich["malade_chronique"];
+   
     // $nombre_post = $affich['nombre_post'];
 }
 $concours->closeCursor();
@@ -121,7 +132,7 @@ $concours->closeCursor();
 <div class="navbar">
   
   <a href="indexA.php" id="showAllPostsButton">Home</a>
-  <a href="#lisner" id="showClientPostsButton">Add post</a>
+  <a href="addPost.php" id="">Add post</a>
   <div class="logout-button">
       <a href="logoutA.php" class="btn btn-warning">Logout</a>
   </div>
@@ -131,7 +142,16 @@ $concours->closeCursor();
         <div class="details"> 
             <p><strong>nom:</strong> <?php echo $nom ?> </p>
             <p><strong>email:</strong> <?php echo $email ?></p>
-            <p><strong>prenom</strong><?php echo $prenom ?></p>
+            <p><strong>prenom:</strong><?php echo $prenom ?></p>
+            <p><strong>date_naissance:</strong><?php echo $date_naissance ?></p>
+            <p><strong>lieu_naissance:</strong><?php echo $lieu_naissance ?></p>
+            <p><strong>telephone:</strong><?php echo $telephone ?></p>
+            <p><strong>sexe:</strong><?php echo $sexe ?></p>
+            <p><strong>etat_civil:</strong><?php echo $etat_civil ?></p>
+            <p><strong>nombre_enfants:</strong><?php echo $nombre_enfants ?></p>
+            <p><strong>diplom:</strong><?php echo $diplom ?></p>
+            <p><strong>service_national:</strong><?php echo $service_national ?></p>
+            <p><strong>adresse:</strong><?php echo $adresse ?></p>
         </div>
 
     </div>
