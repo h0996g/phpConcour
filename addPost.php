@@ -1,7 +1,7 @@
 <?php
 session_start();
-if (isset($_SESSION["user"])) {
-    header("Location: index.php");
+if (!isset($_SESSION["admin"])) {
+    header("Location: indexA.php");
 }
 ?>
 <!DOCTYPE html>
@@ -122,11 +122,6 @@ a:hover {
          
            $lastId=$conn->lastInsertId();
 
-
-
-
-       
-       
            $add->closeCursor();
 
            $add2 = $conn->prepare("INSERT INTO concours (Id_Poste,Date_Concours,Lieu_Concours,Nombre_poste) values(:Id_Poste,:Date_Concours,:Lieu_Concours,:Nombre_poste)");
@@ -140,7 +135,8 @@ a:hover {
            $add2->closeCursor();
 
                     //  echo "<div class='alert alert-success'>You are registered successfully '$lastId'.</div>";
-    header("Location:indexA.php ");
+    header("Location:indexA.php");
+    exit();
      
      }catch(Exception $e){
                      die($e);
@@ -149,8 +145,9 @@ a:hover {
        }
         ?>
         <form action="addPost.php" method="post">
+            
         <div class="form-group">
-                <input type="text" class="form-control" name="des_poste" placeholder="des_poste" require>
+                <input type="text" class="form-control" name="des_poste" placeholder="des_poste">
             </div>
             <div class="form-group">
                 <input type="text" class="form-control" name="grade_poste" placeholder="grade_poste">
@@ -166,7 +163,7 @@ a:hover {
                 <input type="number" class="form-control" name="Nombre_poste" placeholder="Nombre_poste">
             </div>
             <div class="form-btn">
-                <input type="submit" class="btn btn-primary" value="Add" name="submit">
+                <input type="submit" class="btn btn-primary" value="Add" name="submit" require>
             </div>
         </form>
         

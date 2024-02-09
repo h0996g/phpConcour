@@ -119,7 +119,9 @@ th {
 
 
     <div class="container">
-        <h1>Welcome </h1>
+        <!-- <h1>Welcome </h1> -->
+<img src="logo.jpg" alt="Logo" width="150" height="150">
+
         
         <table id="clientPostsTable" >
             <thead>

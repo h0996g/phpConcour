@@ -181,8 +181,10 @@ if (!isset($_SESSION["admin"])) {
                 // Handle the exception if needed
             }
             // header("Refresh:0");
-            header("Location: " . $_SERVER['PHP_SELF']);
-            exit();
+            // exit(header("Location:indexA.php"));
+            // header("Location: " . $_SERVER['PHP_SELF']);
+            echo '<script> location.replace("indexA.php"); </script>';
+            // exit();
         }
         ?>
         </tbody>

@@ -138,7 +138,7 @@ $concours->closeCursor();
   </div>
 </div>
     <div class="container">
-        <h1>Concours Details</h1>
+        <h1>User:</h1>
         <div class="details"> 
             <p><strong>nom:</strong> <?php echo $nom ?> </p>
             <p><strong>email:</strong> <?php echo $email ?></p>
