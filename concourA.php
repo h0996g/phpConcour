@@ -21,7 +21,10 @@ if (!isset($_SESSION["admin"])) {
 //     } 
 // } 
 try {
-    $conn = new PDO('mysql:host=localhost;dbname=memoir;charset=utf8','root','',array(PDO::ATTR_ERRMODE=>PDO::ERRMODE_EXCEPTION));
+  
+    // $conn = new PDO('mysql:host=localhost;dbname=memoir;charset=utf8','root','',array(PDO::ATTR_ERRMODE=>PDO::ERRMODE_EXCEPTION));
+    require_once "database.php";
+
     // $all = $conn->query('SELECT * FROM Concours where id_post =1 ');
 } catch(Exception $e){
     die('ERROR :'.$e->getMessage());
@@ -45,8 +48,10 @@ if(isset($_POST['update'])) {
         // Handle the exception if needed
     } 
     // header("Refresh:0");
-    header("Location: ".$_SERVER['PHP_SELF']."?id=".$_GET['id']);
-  exit();
+    // header("Location: ".$_SERVER['PHP_SELF']."?id=".$_GET['id']);
+    echo '<script> location.replace('.$_SERVER['PHP_SELF']."?id=".$_GET['id'].'); </script>';
+
+//   exit();
 
 }
 
@@ -141,7 +146,7 @@ th, td {
 }
 
 th {
-    background-color: #4caf50; /* Green */
+    background-color: #0000FF; /* Green */
     color: #fff;
 }
 
@@ -184,7 +189,9 @@ th {
             <tbody>
                 <?php
                 try {
-                    $conn = new PDO('mysql:host=localhost;dbname=memoir;charset=utf8', 'root', '', array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
+                    // $conn = new PDO('mysql:host=localhost;dbname=memoir;charset=utf8', 'root', '', array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
+            require_once "database.php";
+
                     $all_post = $conn->prepare('select * from participe p ,concours c,participants u WHERE p.ID_Concours =c.ID_Concours  and c.Id_Poste = :Id_Poste and u.Id_Part =p.Id_Part ');
                     $all_post->execute(array(
                         'Id_Poste' => $_GET['id'],

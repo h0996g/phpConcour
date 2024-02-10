@@ -8,7 +8,9 @@ if (!isset($_SESSION["admin"])) {
 
 
 
-$conn = new PDO('mysql:host=localhost;dbname=memoir;charset=utf8', 'root', '', array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
+// $conn = new PDO('mysql:host=localhost;dbname=memoir;charset=utf8', 'root', '', array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
+require_once "database.php";
+
 $concours = $conn->prepare('SELECT * FROM participants WHERE Id_Part = :Id_Part');
 $concours->execute(array(
     'Id_Part' => $_GET['id'],

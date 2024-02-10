@@ -111,7 +111,9 @@ a:hover {
                 $Nombre_poste = $_POST["Nombre_poste"];          
      try{
 
-        $conn=new PDO('mysql:host=localhost;dbname=memoir;charset=utf8','root','',array(PDO::ATTR_ERRMODE=>PDO::ERRMODE_EXCEPTION));
+        // $conn=new PDO('mysql:host=localhost;dbname=memoir;charset=utf8','root','',array(PDO::ATTR_ERRMODE=>PDO::ERRMODE_EXCEPTION));
+        require_once "database.php";
+
 
          $add = $conn->prepare("INSERT INTO poste (des_poste,grade_poste) values(:des_poste,:grade_poste)");
        $add->execute(array(
@@ -147,23 +149,24 @@ a:hover {
         <form action="addPost.php" method="post">
             
         <div class="form-group">
-                <input type="text" class="form-control" name="des_poste" placeholder="des_poste">
+
+                <input type="text" class="form-control" name="des_poste" placeholder="des_poste" required>
             </div>
             <div class="form-group">
-                <input type="text" class="form-control" name="grade_poste" placeholder="grade_poste">
+                <input type="text" class="form-control" name="grade_poste" placeholder="grade_poste" required>
             </div>
 
             <div class="form-group">
-                <input type="date" class="form-control" name="Date_Concours" placeholder="Date_Concours">
+                <input type="date" class="form-control" name="Date_Concours" placeholder="Date_Concours" required>
             </div>
             <div class="form-group">
-                <input type="text" class="form-control" name="Lieu_Concours" placeholder="Lieu_Concours">
+                <input type="text" class="form-control" name="Lieu_Concours" placeholder="Lieu_Concours" required>
             </div>
             <div class="form-group">
-                <input type="number" class="form-control" name="Nombre_poste" placeholder="Nombre_poste">
+                <input type="number" class="form-control" name="Nombre_poste" placeholder="Nombre_poste" required>
             </div>
             <div class="form-btn">
-                <input type="submit" class="btn btn-primary" value="Add" name="submit" require>
+                <input type="submit" class="btn btn-primary" value="Add" name="submit" required>
             </div>
         </form>
         

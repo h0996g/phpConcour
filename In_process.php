@@ -96,7 +96,7 @@ th, td {
 }
 
 th {
-    background-color: #4caf50; /* Green */
+    background-color: #0000FF; /* Green */
     color: #fff;
 }
 
@@ -120,7 +120,7 @@ th {
 
     <div class="container">
         <!-- <h1>Welcome </h1> -->
-<img src="logo.jpg" alt="Logo" width="150" height="150">
+        <img src="b.jpg" alt="Logo" width="150" height="120">
 
         
         <table id="clientPostsTable" >
@@ -136,7 +136,9 @@ th {
             </thead>
             <tbody>
                 <?php
-                    $conn = new PDO('mysql:host=localhost;dbname=memoir;charset=utf8', 'root', '', array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
+                    // $conn = new PDO('mysql:host=localhost;dbname=memoir;charset=utf8', 'root', '', array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
+            require_once "database.php";
+
 
                 $concour_own = $conn->prepare('SELECT * FROM concours c , participe p, poste po where c.ID_Concours=p.ID_Concours and p.Id_Part= :Id_Part and po.Id_Poste=c.Id_Poste;');
 

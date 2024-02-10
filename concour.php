@@ -22,7 +22,9 @@ function button1($conn){
 } 
 
 try {
-    $conn = new PDO('mysql:host=localhost;dbname=memoir;charset=utf8','root','',array(PDO::ATTR_ERRMODE=>PDO::ERRMODE_EXCEPTION));
+    // $conn = new PDO('mysql:host=localhost;dbname=memoir;charset=utf8','root','',array(PDO::ATTR_ERRMODE=>PDO::ERRMODE_EXCEPTION));
+    require_once "database.php";
+
     // $all = $conn->query('SELECT * FROM Concours where id_post =1 ');
 } catch(Exception $e){
     die('ERROR :'.$e->getMessage());

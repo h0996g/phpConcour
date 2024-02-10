@@ -96,7 +96,7 @@ th, td {
 }
 
 th {
-    background-color: #4caf50; /* Green */
+    background-color: #0000FF; /* Green */
     color: #fff;
 }
 
@@ -119,7 +119,7 @@ th {
 
     <div class="container">
         <!-- <h1>Welcome </h1> -->
-        <img src="logo.jpg" alt="Logo" width="150" height="150">
+        <img src="b.jpg" alt="Logo" width="150" height="120">
         
 
         <table id="allPostsTable">
@@ -133,7 +133,10 @@ th {
             <tbody>
                 <?php
                 try {
-                    $conn = new PDO('mysql:host=localhost;dbname=memoir;charset=utf8', 'root', '', array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
+                  
+                    // $conn = new PDO('mysql:host=localhost;dbname=memoir;charset=utf8', 'root', '', array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
+                  require_once "database.php";
+                  
                     $all_post = $conn->query('SELECT * FROM poste');
 
                     while ($affich = $all_post->fetch()) {
