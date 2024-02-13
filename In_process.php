@@ -120,7 +120,7 @@ th {
 
     <div class="container">
         <!-- <h1>Welcome </h1> -->
-        <img src="b.jpg" alt="Logo" width="150" height="120">
+        <img src="logo.jpg" alt="Logo" width="150" height="120">
 
         
         <table id="clientPostsTable" >

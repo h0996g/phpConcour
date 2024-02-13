@@ -9,7 +9,7 @@ if (!isset($_SESSION["admin"])) {
 
 
 // $conn = new PDO('mysql:host=localhost;dbname=memoir;charset=utf8', 'root', '', array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
-require_once "database.php";
+require_once "../database.php";
 
 $concours = $conn->prepare('SELECT * FROM participants WHERE Id_Part = :Id_Part');
 $concours->execute(array(
@@ -47,7 +47,7 @@ $concours->closeCursor();
       body {
     font-family: Arial, sans-serif;
     background-color: #f5f5f5; /* Light Gray */
-    background-image: url("medical.jpg");
+    background-image: url("../medical.jpg");
 
     margin: 0;
     padding: 0;
@@ -140,7 +140,8 @@ $concours->closeCursor();
   </div>
 </div>
     <div class="container">
-        <h1>User:</h1>
+    <!-- <img src="../logo.jpg" alt="Logo" width="150" height="120"> -->
+
         <div class="details"> 
             <p><strong>nom:</strong> <?php echo $nom ?> </p>
             <p><strong>email:</strong> <?php echo $email ?></p>

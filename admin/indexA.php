@@ -14,7 +14,7 @@ if (!isset($_SESSION["admin"])) {
         body {
             font-family: Arial, sans-serif;
             background-color: #f5f5f5; /* Light Gray */
-            background-image: url("medical.jpg");
+            background-image: url("../medical.jpg");
             margin: 0;
             padding: 0;
         }
@@ -113,7 +113,8 @@ if (!isset($_SESSION["admin"])) {
     </div>
 </div>
 <div class="container">
-    <h1>Welcome </h1>
+<img src="../logo.jpg" alt="Logo" width="150" height="120">
+
     <table id="allPostsTable">
         <thead>
         <tr>
@@ -127,7 +128,7 @@ if (!isset($_SESSION["admin"])) {
         <?php
         try {
             // $conn = new PDO('mysql:host=localhost;dbname=memoir;charset=utf8', 'root', '', array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
-            require_once "database.php";
+            require_once "../database.php";
 
             $all_post = $conn->query('SELECT * FROM poste');
 

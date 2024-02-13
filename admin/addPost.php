@@ -15,12 +15,12 @@ if (!isset($_SESSION["admin"])) {
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"
         integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi"
         crossorigin="anonymous">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="../style.css">
     <style>
          body {
     font-family: Arial, sans-serif;
     background-color: #f5f5f5; /* Light Gray */
-    background-image: url("medical.jpg");
+    background-image: url("../medical.jpg");
 
     margin: 0;
     padding: 0;
@@ -102,6 +102,8 @@ a:hover {
   </div>
 </div>
     <div class="container">
+<!-- <img src="../logo.jpg" alt="Logo" width="150" height="120"> -->
+
         <?php
               if (isset($_POST["submit"])) {
                 $des_poste=$_POST["des_poste"];
@@ -112,7 +114,7 @@ a:hover {
      try{
 
         // $conn=new PDO('mysql:host=localhost;dbname=memoir;charset=utf8','root','',array(PDO::ATTR_ERRMODE=>PDO::ERRMODE_EXCEPTION));
-        require_once "database.php";
+        require_once "../database.php";
 
 
          $add = $conn->prepare("INSERT INTO poste (des_poste,grade_poste) values(:des_poste,:grade_poste)");

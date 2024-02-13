@@ -156,6 +156,7 @@ $participe->closeCursor();
  
 </head>
 <body>
+    
 <div class="navbar">
   
   <a href="index.php" id="showAllPostsButton">Home</a>
@@ -165,7 +166,9 @@ $participe->closeCursor();
   </div>
 </div>
     <div class="container">
-        <h1>Concours Details</h1>
+<img src="logo.jpg" alt="Logo" width="150" height="120">
+
+        <!-- <h1>Concours Details</h1> -->
         <div class="details"> 
             <p><strong>Date:</strong> <?php echo $date_concour ?> </p>
             <p><strong>Place:</strong> <?php echo $lieu_concour ?></p>

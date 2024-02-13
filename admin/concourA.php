@@ -23,7 +23,7 @@ if (!isset($_SESSION["admin"])) {
 try {
   
     // $conn = new PDO('mysql:host=localhost;dbname=memoir;charset=utf8','root','',array(PDO::ATTR_ERRMODE=>PDO::ERRMODE_EXCEPTION));
-    require_once "database.php";
+    require_once "../database.php";
 
     // $all = $conn->query('SELECT * FROM Concours where id_post =1 ');
 } catch(Exception $e){
@@ -65,7 +65,7 @@ if(isset($_POST['update'])) {
   body {
     font-family: Arial, sans-serif;
     background-color: #f5f5f5; /* Light Gray */
-    background-image: url("medical.jpg");
+    background-image: url("../medical.jpg");
 
     margin: 0;
     padding: 0;
@@ -169,7 +169,8 @@ th {
 </div>
 
     <div class="container">
-        <h1>Welcome </h1>
+    <img src="../logo.jpg" alt="Logo" width="150" height="120">
+
         
 
         <!-- <button id="toggleButton" class="btn btn-primary">Mon Concours</button> -->
@@ -190,7 +191,7 @@ th {
                 <?php
                 try {
                     // $conn = new PDO('mysql:host=localhost;dbname=memoir;charset=utf8', 'root', '', array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
-            require_once "database.php";
+            require_once "../database.php";
 
                     $all_post = $conn->prepare('select * from participe p ,concours c,participants u WHERE p.ID_Concours =c.ID_Concours  and c.Id_Poste = :Id_Poste and u.Id_Part =p.Id_Part ');
                     $all_post->execute(array(
