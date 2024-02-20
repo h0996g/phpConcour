@@ -62,10 +62,12 @@ if(isset($_POST['update'])) {
     <meta charset="UTF-8">
     <title>User Dashboard</title>
     <style>
-  body {
+   body {
     font-family: Arial, sans-serif;
-    background-color: #f5f5f5; /* Light Gray */
-    background-image: url("../medical.jpg");
+    /* background-color: #f5f5f5; Light Gray */
+    background-image: url("../aa.jpg");
+    background-size: cover;
+
 
     margin: 0;
     padding: 0;

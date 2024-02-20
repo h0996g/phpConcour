@@ -11,10 +11,12 @@ if (!isset($_SESSION["user"])) {
     <meta charset="UTF-8">
     <title>User Dashboard</title>
     <style>
-  body {
+   body {
     font-family: Arial, sans-serif;
-    background-color: #f5f5f5; /* Light Gray */
-    background-image: url("medical.jpg");
+    /* background-color: #f5f5f5; Light Gray */
+    background-image: url("aa.jpg");
+    background-size: cover;
+
 
     margin: 0;
     padding: 0;
@@ -129,9 +131,11 @@ th {
                     <th>Desc</th>
                     <th>Grad</th>
                     <th>Nombre Post</th>
-                    <th>Date Concours</th>
-                    <th>Lieu Concours</th>
+                    <!-- <th>Date Concours</th> -->
+                    <!-- <th>Lieu Concours</th> -->
                     <th>Résultat</th>
+                    <th>details</th>
+                    
                 </tr>
             </thead>
             <tbody>
@@ -146,6 +150,7 @@ th {
 
                 while ($row = $concour_own->fetch()) {
                     $id_concour = $row['ID_Concours'];
+                    $Id_Poste=$row['Id_Poste'];
                     $desc_post = $row['des_poste'];
                     $grad_post = $row['grade_poste'];
                     $date_concour = $row['Date_Concours'];
@@ -153,15 +158,17 @@ th {
                     $nombre_post = $row['Nombre_poste'];
                     $resultat = $row['Resultat'];
 
-                    echo
-                        '<tr>' .
-                        '<td>' . $desc_post . '</td>' .
-                        '<td>' . $grad_post . '</td>' .
-                        '<td>' . $nombre_post . '</td>' .
-                        '<td>' . $date_concour . '</td>' .
-                        '<td>' . $lieu_concour . '</td>' .
-                        '<td>' . $resultat . '</td>' .
-                        '</tr>';
+                    echo '<tr>' .
+                     '<td>' . $desc_post . '</td>' .
+                     '<td>' . $grad_post . '</td>' .
+                     '<td>' . $nombre_post . '</td>' .
+                     '<td>' . $resultat . '</td>';
+                
+                if ($resultat === 'acceptable') {
+                    echo '<td><a href="concour.php?id=' . $Id_Poste . '">more</a></td>';
+                }
+
+                echo '</tr>';
                 }
                 ?>
             </tbody>

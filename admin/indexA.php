@@ -11,13 +11,16 @@ if (!isset($_SESSION["admin"])) {
     <meta charset="UTF-8">
     <title>User Dashboard</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f5f5f5; /* Light Gray */
-            background-image: url("../medical.jpg");
-            margin: 0;
-            padding: 0;
-        }
+   body {
+    font-family: Arial, sans-serif;
+    /* background-color: #f5f5f5; Light Gray */
+    background-image: url("../aa.jpg");
+    background-size: cover;
+
+
+    margin: 0;
+    padding: 0;
+}
 
         .navbar {
             background-color: #333;

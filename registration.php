@@ -17,18 +17,16 @@ if (isset($_SESSION["user"])) {
         crossorigin="anonymous">
     <link rel="stylesheet" href="style.css">
     <style>
-     body {
-    background-image: url("medical.jpg");
-    font: inherit;
-    background-color: #cccccc; /* Used if the image is unavailable */
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-position: center; /* Center the image */
-    background-repeat: no-repeat; /* Do not repeat the image */
+body {
+    font-family: Arial, sans-serif;
+    /* background-color: #f5f5f5; Light Gray */
+    background-image: url("aa.jpg");
     background-size: cover;
-}
 
+
+    margin: 0;
+    padding: 0;
+}
 .container {
     text-align: center;
     max-width: 400px;
@@ -199,9 +197,10 @@ a:hover {
                 <input type="submit" class="btn btn-primary" value="S'inscrire" name="submit">
             </div>
         </form>
-        <div>
-            <p>Déjà inscrit? <a href="login.php">Connectez-vous ici</a></p>
-        </div>
+        <div style="background-color: #ffffff; padding: 2px; margin:3px">
+    <p style="font-weight: bold; color: #0000FF;">Déjà inscrit? <a href="login.php">Connectez-vous ici</a></p>
+</div>
+
     </div>
 </body>
 
